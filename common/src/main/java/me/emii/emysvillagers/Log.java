@@ -5,8 +5,7 @@ import org.slf4j.LoggerFactory;
 
 public class Log {
 
-	public static final String MOD_NAME = "Emys Villagers";
-	public static final Logger LOGGER = LoggerFactory.getLogger(MOD_NAME);
+	public static final Logger LOGGER = LoggerFactory.getLogger(EmysVillagers.MOD_NAME);
 
 	public static void info(String message, Object... args) {
 		LOGGER.info(message, args);
