@@ -6,7 +6,8 @@ public class EmysVillagersFabric implements ModInitializer {
     
     @Override
     public void onInitialize() {
-        
+
         EmysVillagers.init();
+
     }
 }

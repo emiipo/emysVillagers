@@ -17,6 +17,9 @@
     "entrypoints": {
         "main": [
             "me.emii.emysvillagers.EmysVillagers"
+        ],
+        "client": [
+            "me.emii.emysvillagers.EmysVillagersFabricClient"
         ]
     },
     "mixins": [
