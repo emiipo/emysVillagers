@@ -35,3 +35,7 @@ loom {
         }
     }
 }
+
+tasks.named('remapJar', net.fabricmc.loom.task.RemapJarTask) {
+    destinationDirectory = rootProject.layout.buildDirectory.dir('libs')
+}

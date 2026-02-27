@@ -42,3 +42,7 @@ tasks.named('sourcesJar', Jar) {
     dependsOn(configurations.commonResources)
     from(configurations.commonResources)
 }
+
+tasks.named('jar', Jar) {
+    destinationDirectory = rootProject.layout.buildDirectory.dir('libs')
+}
