@@ -12,7 +12,7 @@ public class EmysVillagers implements ModInitializer {
         // project.
 
         // Use Fabric to bootstrap the Common mod.
-        Constants.LOG.info("Hello Fabric world!");
+        Log.info("Hello Fabric world!");
         CommonClass.init();
     }
 }

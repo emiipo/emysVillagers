@@ -14,7 +14,7 @@ public class EmysVillagers {
         // project.
 
         // Use NeoForge to bootstrap the Common mod.
-        Constants.LOG.info("Hello NeoForge world!");
+        Constants.info("Hello NeoForge world!");
         CommonClass.init();
 
     }
