@@ -17,6 +17,7 @@ dependencies {
             requireCapability "$group:$mod_id"
         }
     }
+    compileOnly "com.google.code.findbugs:jsr305:3.0.2"
     commonJava project(path: ':common', configuration: 'commonJava')
     commonResources project(path: ':common', configuration: 'commonResources')
 }
