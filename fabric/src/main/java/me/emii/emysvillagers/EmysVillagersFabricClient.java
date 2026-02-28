@@ -11,9 +11,7 @@ public class EmysVillagersFabricClient implements ClientModInitializer {
     
     @Override
     public void onInitializeClient() {
-        
         EntityRendererRegistry.register(EntityType.VILLAGER, EmysHumanoidRenderer::new);
         EntityModelLayerRegistry.registerModelLayer(EmysHumanoidRenderer.HUMANOID, EmysHumanoidModel::createBodyLayer);
-
     }
 }
