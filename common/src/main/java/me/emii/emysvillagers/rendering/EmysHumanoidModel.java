@@ -1,5 +1,6 @@
 package me.emii.emysvillagers.rendering;
 
+import me.emii.emysvillagers.HumanoidManager.BodyType;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.PlayerModel;
 import net.minecraft.client.model.geom.ModelPart;
@@ -14,8 +15,8 @@ public class EmysHumanoidModel<T extends LivingEntity> extends HumanoidModel<T> 
         super(root);
     }
     
-    public static LayerDefinition createBodyLayer() {
-        MeshDefinition mesh = PlayerModel.createMesh(CubeDeformation.NONE, true);
+    public static LayerDefinition createBodyLayer(BodyType type) {
+        MeshDefinition mesh = PlayerModel.createMesh(CubeDeformation.NONE, type == BodyType.FEM);
         return LayerDefinition.create(mesh, 64, 64);
     }
 }

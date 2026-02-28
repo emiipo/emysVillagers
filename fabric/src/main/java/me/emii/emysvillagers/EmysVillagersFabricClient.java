@@ -1,5 +1,6 @@
 package me.emii.emysvillagers;
 
+import me.emii.emysvillagers.HumanoidManager.BodyType;
 import me.emii.emysvillagers.rendering.EmysHumanoidModel;
 import me.emii.emysvillagers.rendering.EmysHumanoidRenderer;
 import net.fabricmc.api.ClientModInitializer;
@@ -12,6 +13,7 @@ public class EmysVillagersFabricClient implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
         EntityRendererRegistry.register(EntityType.VILLAGER, EmysHumanoidRenderer::new);
-        EntityModelLayerRegistry.registerModelLayer(EmysHumanoidRenderer.HUMANOID, EmysHumanoidModel::createBodyLayer);
+        EntityModelLayerRegistry.registerModelLayer(EmysHumanoidRenderer.HUMANOID_FEM, () -> EmysHumanoidModel.createBodyLayer(BodyType.FEM));
+        EntityModelLayerRegistry.registerModelLayer(EmysHumanoidRenderer.HUMANOID_MASC, () -> EmysHumanoidModel.createBodyLayer(BodyType.MASC));
     }
 }

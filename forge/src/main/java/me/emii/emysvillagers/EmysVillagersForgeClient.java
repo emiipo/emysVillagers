@@ -1,5 +1,6 @@
 package me.emii.emysvillagers;
 
+import me.emii.emysvillagers.HumanoidManager.BodyType;
 import me.emii.emysvillagers.rendering.EmysHumanoidModel;
 import me.emii.emysvillagers.rendering.EmysHumanoidRenderer;
 import net.minecraft.world.entity.EntityType;
@@ -18,7 +19,8 @@ public class EmysVillagersForgeClient {
 
     @SubscribeEvent
     public static void onRegisterLayers(EntityRenderersEvent.RegisterLayerDefinitions event) {
-        event.registerLayerDefinition(EmysHumanoidRenderer.HUMANOID, EmysHumanoidModel::createBodyLayer);
+        event.registerLayerDefinition(EmysHumanoidRenderer.HUMANOID_FEM, () -> EmysHumanoidModel.createBodyLayer(BodyType.FEM));
+        event.registerLayerDefinition(EmysHumanoidRenderer.HUMANOID_MASC, () -> EmysHumanoidModel.createBodyLayer(BodyType.MASC));
     }
 
 }
