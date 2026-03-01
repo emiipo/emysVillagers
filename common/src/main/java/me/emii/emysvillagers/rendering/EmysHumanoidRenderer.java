@@ -50,7 +50,7 @@ public class EmysHumanoidRenderer<T extends Mob> extends MobRenderer<T, EmysHuma
 
     @Override                                                                                            
     protected boolean shouldShowName(T entity) {
-        return true;                                                                                     
+        return super.shouldShowName(entity);                                                                                     
     }   
 
     @Override
