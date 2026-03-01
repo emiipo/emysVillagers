@@ -1,0 +1,91 @@
+ {
+    "entity.villager.fem.ambient": {
+        "sounds": [
+            "emysvillagers:entity/villager/fem/ambient1",
+            "emysvillagers:entity/villager/fem/ambient2",
+            "emysvillagers:entity/villager/fem/ambient3",
+            "emysvillagers:entity/villager/fem/ambient4"
+        ]
+    },
+    "entity.villager.fem.trade": {
+        "sounds": [
+            "emysvillagers:entity/villager/fem/trade1",
+            "emysvillagers:entity/villager/fem/trade2",
+            "emysvillagers:entity/villager/fem/trade3"
+        ]
+    },
+    "entity.villager.fem.death": {
+        "sounds": [
+            "emysvillagers:entity/villager/fem/death1",
+            "emysvillagers:entity/villager/fem/death2"
+        ]
+    },
+    "entity.villager.fem.hurt": {
+        "sounds": [
+            "emysvillagers:entity/villager/fem/hurt1",
+            "emysvillagers:entity/villager/fem/hurt2",
+            "emysvillagers:entity/villager/fem/hurt3"
+        ]
+    },
+    "entity.villager.fem.yes": {
+        "sounds": [
+            "emysvillagers:entity/villager/fem/yes1",
+            "emysvillagers:entity/villager/fem/yes2",
+            "emysvillagers:entity/villager/fem/yes3"
+        ]
+    },
+    "entity.villager.fem.no": {
+        "sounds": [
+            "emysvillagers:entity/villager/fem/no1",
+            "emysvillagers:entity/villager/fem/no2",
+            "emysvillagers:entity/villager/fem/no3"
+        ]
+    },
+
+    "entity.villager.masc.ambient": {
+        "sounds": [
+            "emysvillagers:entity/villager/masc/ambient1",
+            "emysvillagers:entity/villager/masc/ambient2",
+            "emysvillagers:entity/villager/masc/ambient3",
+            "emysvillagers:entity/villager/masc/ambient4"
+        ]
+    },
+    "entity.villager.masc.trade": {
+        "sounds": [
+            "emysvillagers:entity/villager/masc/trade1",
+            "emysvillagers:entity/villager/masc/trade2",
+            "emysvillagers:entity/villager/masc/trade3",
+            "emysvillagers:entity/villager/masc/trade4"
+        ]
+    },
+    "entity.villager.masc.death": {
+        "sounds": [
+            "emysvillagers:entity/villager/masc/death1",
+            "emysvillagers:entity/villager/masc/death2",
+            "emysvillagers:entity/villager/masc/death3"
+        ]
+    },
+    "entity.villager.masc.hurt": {
+        "sounds": [
+            "emysvillagers:entity/villager/masc/hurt1",
+            "emysvillagers:entity/villager/masc/hurt2",
+            "emysvillagers:entity/villager/masc/hurt3",
+            "emysvillagers:entity/villager/masc/hurt4"
+        ]
+    },
+    "entity.villager.masc.yes": {
+        "sounds": [
+            "emysvillagers:entity/villager/masc/yes1",
+            "emysvillagers:entity/villager/masc/yes2",
+            "emysvillagers:entity/villager/masc/yes3",
+            "emysvillagers:entity/villager/masc/yes4"
+        ]
+    },
+    "entity.villager.masc.no": {
+        "sounds": [
+            "emysvillagers:entity/villager/masc/no1",
+            "emysvillagers:entity/villager/masc/no2",
+            "emysvillagers:entity/villager/masc/no3"
+        ]
+    }
+  }
