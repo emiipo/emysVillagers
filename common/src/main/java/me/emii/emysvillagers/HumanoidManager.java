@@ -9,7 +9,10 @@ import me.emii.emysvillagers.accessor.IHumanoidDataAccessor;
 import java.io.InputStreamReader;
 import java.io.InputStream;
 import java.util.Random;
+
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 
@@ -18,8 +21,21 @@ public class HumanoidManager {
     public static enum BodyType { FEM, MASC}
     private static final Random RANDOM = new Random();
 
-    private String[] mascNames = {"Villager"};
     private String[] femNames = {"Villager"};
+    private String[] mascNames = {"Villager"};
+
+    public static final SoundEvent FEM_AMBIENT_SOUNDS = SoundEvent.createVariableRangeEvent(ResourceLocation.fromNamespaceAndPath(EmysVillagers.MOD_ID, "entity.villager.fem.ambient"));
+    public static final SoundEvent MASC_AMBIENT_SOUNDS = SoundEvent.createVariableRangeEvent(ResourceLocation.fromNamespaceAndPath(EmysVillagers.MOD_ID, "entity.villager.masc.ambient"));
+    public static final SoundEvent FEM_TRADE_SOUNDS = SoundEvent.createVariableRangeEvent(ResourceLocation.fromNamespaceAndPath(EmysVillagers.MOD_ID, "entity.villager.fem.trade"));
+    public static final SoundEvent MASC_TRADE_SOUNDS = SoundEvent.createVariableRangeEvent(ResourceLocation.fromNamespaceAndPath(EmysVillagers.MOD_ID, "entity.villager.masc.trade"));
+    public static final SoundEvent FEM_DEATH_SOUNDS = SoundEvent.createVariableRangeEvent(ResourceLocation.fromNamespaceAndPath(EmysVillagers.MOD_ID, "entity.villager.fem.death"));
+    public static final SoundEvent MASC_DEATH_SOUNDS = SoundEvent.createVariableRangeEvent(ResourceLocation.fromNamespaceAndPath(EmysVillagers.MOD_ID, "entity.villager.masc.death"));
+    public static final SoundEvent FEM_HURT_SOUNDS = SoundEvent.createVariableRangeEvent(ResourceLocation.fromNamespaceAndPath(EmysVillagers.MOD_ID, "entity.villager.fem.hurt"));
+    public static final SoundEvent MASC_HURT_SOUNDS = SoundEvent.createVariableRangeEvent(ResourceLocation.fromNamespaceAndPath(EmysVillagers.MOD_ID, "entity.villager.masc.hurt"));
+    public static final SoundEvent FEM_YES_SOUNDS = SoundEvent.createVariableRangeEvent(ResourceLocation.fromNamespaceAndPath(EmysVillagers.MOD_ID, "entity.villager.fem.yes"));
+    public static final SoundEvent MASC_YES_SOUNDS = SoundEvent.createVariableRangeEvent(ResourceLocation.fromNamespaceAndPath(EmysVillagers.MOD_ID, "entity.villager.masc.yes"));
+    public static final SoundEvent FEM_NO_SOUNDS = SoundEvent.createVariableRangeEvent(ResourceLocation.fromNamespaceAndPath(EmysVillagers.MOD_ID, "entity.villager.fem.no"));
+    public static final SoundEvent MASC_NO_SOUNDS = SoundEvent.createVariableRangeEvent(ResourceLocation.fromNamespaceAndPath(EmysVillagers.MOD_ID, "entity.villager.masc.no"));
 
     public HumanoidManager() {
         loadNames();
@@ -37,10 +53,13 @@ public class HumanoidManager {
             tag.putByte(Constants.BODY_TYPE, (byte)type.ordinal());
         }
         if (!tag.contains(Constants.NAME)) {
-            tag.putString(Constants.NAME, pickName(getBodyType(tag)));
+            tag.putString(Constants.NAME, pickName(getBodyType(tag.getByte(Constants.BODY_TYPE))));
+        }
+        if (!tag.contains(Constants.PITCH)) {
+            tag.putFloat(Constants.PITCH, RANDOM.nextFloat(-0.10f, 0.20f));
         }
 
-        ((IHumanoidDataAccessor)(Object)entity).emysvillagers$setData(new HumanoidData(getBodyType(tag), tag.getString(Constants.NAME)));
+        ((IHumanoidDataAccessor)(Object)entity).emysvillagers$setData(new HumanoidData(getBodyType(tag.getByte(Constants.BODY_TYPE)), tag.getString(Constants.NAME), tag.getFloat(Constants.PITCH)));
     }
 
     private String pickName(BodyType type) {
@@ -51,9 +70,9 @@ public class HumanoidManager {
         }
     }
 
-    private BodyType getBodyType(CompoundTag tag) {
+    public static BodyType getBodyType(int val) {
         try {
-            return BodyType.values()[tag.getByte(Constants.BODY_TYPE)];
+            return BodyType.values()[val];
         } catch (ArrayIndexOutOfBoundsException e) {
             Log.warn(e.toString());
             return BodyType.FEM; // Default to this for now, maybe do NONE later
