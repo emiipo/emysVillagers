@@ -2,6 +2,7 @@ package me.emii.emysvillagers.rendering;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 
+import me.emii.emysvillagers.EmysVillagers;
 import me.emii.emysvillagers.accessor.HumanoidData;
 import me.emii.emysvillagers.accessor.IHumanoidDataAccessor;
 import net.minecraft.client.model.geom.ModelLayerLocation;
@@ -15,8 +16,8 @@ import net.minecraft.world.entity.Mob;
 public class EmysHumanoidRenderer<T extends Mob> extends MobRenderer<T, EmysHumanoidModel<T>>{
     
     private final EmysHumanoidModel<T>[] models;
-    public static final ModelLayerLocation HUMANOID_FEM = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath("emysvillagers", "humanoid_fem"), "main");
-    public static final ModelLayerLocation HUMANOID_MASC = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath("emysvillagers", "humanoid_masc"), "main");
+    public static final ModelLayerLocation HUMANOID_FEM = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(EmysVillagers.MOD_ID, "humanoid_fem"), "main");
+    public static final ModelLayerLocation HUMANOID_MASC = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(EmysVillagers.MOD_ID, "humanoid_masc"), "main");
 
     public EmysHumanoidRenderer(EntityRendererProvider.Context context) {
         this(context, 0.5f);
@@ -59,7 +60,7 @@ public class EmysHumanoidRenderer<T extends Mob> extends MobRenderer<T, EmysHuma
 
     @Override
     public ResourceLocation getTextureLocation(T entity) {
-        return ResourceLocation.fromNamespaceAndPath("emysvillagers", "textures/entity/villager/default.png");
+        return ResourceLocation.fromNamespaceAndPath(EmysVillagers.MOD_ID, "textures/entity/villager/default.png");
     }
 
 }
