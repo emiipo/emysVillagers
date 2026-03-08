@@ -1,6 +1,8 @@
 package me.emii.emysvillagers;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
 import me.emii.emysvillagers.accessor.HumanoidData;
@@ -8,6 +10,8 @@ import me.emii.emysvillagers.accessor.IHumanoidDataAccessor;
 
 import java.io.InputStreamReader;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import net.minecraft.nbt.CompoundTag;
@@ -24,6 +28,16 @@ public class HumanoidManager {
     private String[] femNames = {"Villager"};
     private String[] mascNames = {"Villager"};
 
+    private ResourceLocation[] bases;
+    private ResourceLocation[] femFaces;
+    private ResourceLocation[] femHairs;
+    private ResourceLocation[] femLegs;
+    private ResourceLocation[] femTops;
+    private ResourceLocation[] mascFaces;
+    private ResourceLocation[] mascHairs;
+    private ResourceLocation[] mascLegs;
+    private ResourceLocation[] mascTops;
+
     public static final SoundEvent FEM_AMBIENT_SOUNDS = SoundEvent.createVariableRangeEvent(ResourceLocation.fromNamespaceAndPath(EmysVillagers.MOD_ID, "entity.villager.fem.ambient"));
     public static final SoundEvent MASC_AMBIENT_SOUNDS = SoundEvent.createVariableRangeEvent(ResourceLocation.fromNamespaceAndPath(EmysVillagers.MOD_ID, "entity.villager.masc.ambient"));
     public static final SoundEvent FEM_TRADE_SOUNDS = SoundEvent.createVariableRangeEvent(ResourceLocation.fromNamespaceAndPath(EmysVillagers.MOD_ID, "entity.villager.fem.trade"));
@@ -39,6 +53,7 @@ public class HumanoidManager {
 
     public HumanoidManager() {
         loadNames();
+        loadTextures();
     }
 
     public void onEntityJoin(Entity entity) {
@@ -87,5 +102,82 @@ public class HumanoidManager {
         } catch (Exception e) {
             Log.error("Failed to load names :(");
         }
+    }
+
+    private void loadTextures() {
+        try (InputStream stream = HumanoidManager.class.getResourceAsStream("/data/emysvillagers/textures.json")) {
+            JsonObject json = new Gson().fromJson(new InputStreamReader(stream), JsonObject.class);
+
+            JsonObject temp;
+            int defaultWeight;
+
+            // Bases
+            temp = json.getAsJsonObject("bases");
+            defaultWeight = temp.has("default_weight") ? temp.get("default_weight").getAsInt() : 1;
+            bases = parseTextures(temp.getAsJsonArray("textures"), defaultWeight);
+
+            // Fem Faces
+            temp = json.getAsJsonObject("fem_faces");
+            defaultWeight = temp.has("default_weight") ? temp.get("default_weight").getAsInt() : 1;
+            femFaces = parseTextures(temp.getAsJsonArray("textures"), defaultWeight);
+
+            // Fem Hairs
+            temp = json.getAsJsonObject("fem_hair");
+            defaultWeight = temp.has("default_weight") ? temp.get("default_weight").getAsInt() : 1;
+            femHairs = parseTextures(temp.getAsJsonArray("textures"), defaultWeight);
+
+            // Fem Legs
+            temp = json.getAsJsonObject("fem_legs");
+            defaultWeight = temp.has("default_weight") ? temp.get("default_weight").getAsInt() : 1;
+            femLegs = parseTextures(temp.getAsJsonArray("textures"), defaultWeight);
+
+            // Fem Tops
+            temp = json.getAsJsonObject("fem_tops");
+            defaultWeight = temp.has("default_weight") ? temp.get("default_weight").getAsInt() : 1;
+            femTops = parseTextures(temp.getAsJsonArray("textures"), defaultWeight);
+
+            // Masc Faces
+            temp = json.getAsJsonObject("masc_faces");
+            defaultWeight = temp.has("default_weight") ? temp.get("default_weight").getAsInt() : 1;
+            mascFaces = parseTextures(temp.getAsJsonArray("textures"), defaultWeight);
+
+            // Masc Hairs
+            temp = json.getAsJsonObject("masc_hair");
+            defaultWeight = temp.has("default_weight") ? temp.get("default_weight").getAsInt() : 1;
+            mascHairs = parseTextures(temp.getAsJsonArray("textures"), defaultWeight);
+
+            // Masc Legs
+            temp = json.getAsJsonObject("masc_legs");
+            defaultWeight = temp.has("default_weight") ? temp.get("default_weight").getAsInt() : 1;
+            mascLegs = parseTextures(temp.getAsJsonArray("textures"), defaultWeight);
+
+            // Masc Tops
+            temp = json.getAsJsonObject("masc_tops");
+            defaultWeight = temp.has("default_weight") ? temp.get("default_weight").getAsInt() : 1;
+            mascTops = parseTextures(temp.getAsJsonArray("textures"), defaultWeight);
+
+        } catch (Exception e) {
+            Log.error("Failed to load textures :(");
+        }
+    }
+
+    private ResourceLocation[] parseTextures(JsonArray arr, int defaultWeight) {
+        List<ResourceLocation> list = new ArrayList<>();
+        for (JsonElement el : arr) {
+            String path;
+            int weight = defaultWeight;
+
+            if (el.isJsonObject()) {
+                path = el.getAsJsonObject().get("texture").getAsString();
+                weight = el.getAsJsonObject().has("weight") ? el.getAsJsonObject().get("weight").getAsInt() : defaultWeight;
+            } else {
+                path = el.getAsString();
+            }
+
+            String[] parts = path.split(":");
+            ResourceLocation location = ResourceLocation.fromNamespaceAndPath(parts[0], parts[1]);
+            for (int i = 0; i < weight; i++) list.add(location);
+        }
+        return list.toArray(new ResourceLocation[0]);
     }
 }

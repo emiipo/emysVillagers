@@ -1,0 +1,74 @@
+{
+    "bases": {
+        "default_weight": 10,
+        "textures": [
+            "emysvillagers:textures/entity/villager/bases/0.png",
+            "emysvillagers:textures/entity/villager/bases/1.png",
+            "emysvillagers:textures/entity/villager/bases/2.png",
+            "emysvillagers:textures/entity/villager/bases/3.png",
+            "emysvillagers:textures/entity/villager/bases/4.png",
+            "emysvillagers:textures/entity/villager/bases/5.png",
+            "emysvillagers:textures/entity/villager/bases/6.png",
+            "emysvillagers:textures/entity/villager/bases/7.png",
+            "emysvillagers:textures/entity/villager/bases/8.png"
+        ]
+    },
+    "fem_faces": {
+        "default_weight": 10,
+        "textures": [
+            "emysvillagers:textures/entity/villager/fem/faces/0.png",
+            "emysvillagers:textures/entity/villager/fem/faces/1.png",
+            "emysvillagers:textures/entity/villager/fem/faces/2.png"
+        ]
+    },
+    "fem_hair": {
+        "default_weight": 10,
+        "textures": [
+            "emysvillagers:textures/entity/villager/fem/hair/0.png",
+            "emysvillagers:textures/entity/villager/fem/hair/1.png",
+            "emysvillagers:textures/entity/villager/fem/hair/2.png",
+            "emysvillagers:textures/entity/villager/fem/hair/3.png",
+            "emysvillagers:textures/entity/villager/fem/hair/4.png"
+        ]
+    },
+    "fem_legs": {
+        "default_weight": 10,
+        "textures": [
+            "emysvillagers:textures/entity/villager/fem/legs/0.png",
+            "emysvillagers:textures/entity/villager/fem/legs/1.png",
+            "emysvillagers:textures/entity/villager/fem/legs/2.png",
+            "emysvillagers:textures/entity/villager/fem/legs/3.png"
+        ]
+    },
+    "fem_tops": {
+        "default_weight": 10,
+        "textures": [
+            "emysvillagers:textures/entity/villager/fem/tops/0.png",
+            "emysvillagers:textures/entity/villager/fem/tops/1.png"
+        ]
+    },
+    "masc_faces": {
+        "default_weight": 10,
+        "textures": [
+            "emysvillagers:textures/entity/villager/bases/0.png"
+        ]
+    },
+    "masc_hair": {
+        "default_weight": 10,
+        "textures": [
+            "emysvillagers:textures/entity/villager/bases/0.png"
+        ]
+    },
+    "masc_legs": {
+        "default_weight": 10,
+        "textures": [
+            "emysvillagers:textures/entity/villager/bases/0.png"
+        ]
+    },
+    "masc_tops": {
+        "default_weight": 10,
+        "textures": [
+            "emysvillagers:textures/entity/villager/bases/0.png"
+        ]
+    }
+}
