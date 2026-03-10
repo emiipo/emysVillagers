@@ -1,7 +1,6 @@
 package me.emii.emysvillagers.rendering;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-
 import me.emii.emysvillagers.EmysVillagers;
 import me.emii.emysvillagers.accessor.HumanoidData;
 import me.emii.emysvillagers.accessor.IHumanoidDataAccessor;
@@ -10,8 +9,11 @@ import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Mob;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.world.entity.npc.Villager;
 
 public class EmysHumanoidRenderer<T extends Mob> extends MobRenderer<T, EmysHumanoidModel<T>>{
     
@@ -40,17 +42,23 @@ public class EmysHumanoidRenderer<T extends Mob> extends MobRenderer<T, EmysHuma
 
     @Override
     protected void renderNameTag(T entity, Component name, PoseStack poseStack, MultiBufferSource buffers, int packedLight, float partialTick) {
-        if (entity.hasCustomName()) {
-            super.renderNameTag(entity, entity.getCustomName(), poseStack, buffers, packedLight, partialTick);
-        } else {
-            Component displayName = Component.literal(((IHumanoidDataAccessor)entity).emysvillagers$getData().name());
-            super.renderNameTag(entity, displayName, poseStack, buffers, packedLight, partialTick);
+        Component displayName = entity.hasCustomName() ? entity.getCustomName() : Component.literal(((IHumanoidDataAccessor)entity).emysvillagers$getData().name());
+
+        MutableComponent finalName = displayName.copy();
+
+        if (entity instanceof Villager villager) {
+            ResourceLocation profKey = BuiltInRegistries.VILLAGER_PROFESSION.getKey(villager.getVillagerData().getProfession());
+            if (profKey != null && !profKey.getPath().equals("none")) {
+                finalName = Component.translatable("entity.minecraft.villager." + profKey.getPath()).append(" ").append(displayName.copy());
+            }
         }
+
+        super.renderNameTag(entity, finalName, poseStack, buffers, packedLight, partialTick);
     }
 
     @Override                                                                                            
     protected boolean shouldShowName(T entity) {
-        return super.shouldShowName(entity);                                                                                     
+        return this.entityRenderDispatcher.distanceToSqr(entity) < 100.0;                                                                                  
     }   
 
     @Override
