@@ -68,7 +68,11 @@ public class EmysHumanoidRenderer<T extends Mob> extends MobRenderer<T, EmysHuma
 
     @Override
     public ResourceLocation getTextureLocation(T entity) {
-        return ResourceLocation.fromNamespaceAndPath(EmysVillagers.MOD_ID, "textures/entity/villager/default.png");
+        String skin = ((IHumanoidDataAccessor)(Object)entity).emysvillagers$getData().skin();
+        if (skin != null && !skin.isEmpty()) {
+            return ResourceLocation.parse(skin);
+        }
+        return ResourceLocation.fromNamespaceAndPath(EmysVillagers.MOD_ID, "textures/entity/villager/fem/skin_1.png");
     }
 
 }

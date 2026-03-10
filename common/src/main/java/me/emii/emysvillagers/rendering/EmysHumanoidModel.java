@@ -19,7 +19,7 @@ public class EmysHumanoidModel<T extends LivingEntity> extends HumanoidModel<T> 
     }
     
     public static LayerDefinition createBodyLayer(BodyType type) {
-        MeshDefinition mesh = PlayerModel.createMesh(CubeDeformation.NONE, type == BodyType.FEM);
+        MeshDefinition mesh = PlayerModel.createMesh(CubeDeformation.NONE, true);
 
         if (type == BodyType.FEM) {
             PartDefinition body = mesh.getRoot().getChild("body");

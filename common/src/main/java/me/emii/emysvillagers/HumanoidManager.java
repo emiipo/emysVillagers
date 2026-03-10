@@ -23,6 +23,8 @@ public class HumanoidManager {
 
     private String[] femNames = {"Villager"};
     private String[] mascNames = {"Villager"};
+    private String[] femSkins = {"emysvillagers:textures/entity/villager/fem/skin_1.png"};
+    private String[] mascSkins = {"emysvillagers:textures/entity/villager/masc/skin_1.png"};
 
     public static final SoundEvent FEM_AMBIENT_SOUNDS = SoundEvent.createVariableRangeEvent(ResourceLocation.fromNamespaceAndPath(EmysVillagers.MOD_ID, "entity.villager.fem.ambient"));
     public static final SoundEvent MASC_AMBIENT_SOUNDS = SoundEvent.createVariableRangeEvent(ResourceLocation.fromNamespaceAndPath(EmysVillagers.MOD_ID, "entity.villager.masc.ambient"));
@@ -39,6 +41,7 @@ public class HumanoidManager {
 
     public HumanoidManager() {
         loadNames();
+        loadSkins();
     }
 
     public void onEntityJoin(Entity entity) {
@@ -58,8 +61,12 @@ public class HumanoidManager {
         if (!tag.contains(Constants.PITCH)) {
             tag.putFloat(Constants.PITCH, RANDOM.nextFloat(-0.10f, 0.20f));
         }
+        if (!tag.contains(Constants.SKIN)) {
+            BodyType type = getBodyType(tag.getByte(Constants.BODY_TYPE));
+            tag.putString(Constants.SKIN, pickSkin(type));
+        }
 
-        ((IHumanoidDataAccessor)(Object)entity).emysvillagers$setData(new HumanoidData(getBodyType(tag.getByte(Constants.BODY_TYPE)), tag.getString(Constants.NAME), tag.getFloat(Constants.PITCH)));
+        ((IHumanoidDataAccessor)(Object)entity).emysvillagers$setData(new HumanoidData(getBodyType(tag.getByte(Constants.BODY_TYPE)), tag.getString(Constants.NAME), tag.getFloat(Constants.PITCH), tag.getString(Constants.SKIN)));
     }
 
     private String pickName(BodyType type) {
@@ -67,6 +74,14 @@ public class HumanoidManager {
             return femNames[RANDOM.nextInt(femNames.length)];
         } else {
             return mascNames[RANDOM.nextInt(mascNames.length)];
+        }
+    }
+
+    private String pickSkin(BodyType type) {
+        if (type == BodyType.FEM) {
+            return femSkins[RANDOM.nextInt(femSkins.length)];
+        } else {
+            return mascSkins[RANDOM.nextInt(mascSkins.length)];
         }
     }
 
@@ -86,6 +101,21 @@ public class HumanoidManager {
             mascNames = new Gson().fromJson(json.getAsJsonArray("masc"), String[].class);
         } catch (Exception e) {
             Log.error("Failed to load names :(");
+        }
+    }
+
+    private void loadSkins() {
+        try (InputStream stream = HumanoidManager.class.getResourceAsStream("/data/emysvillagers/fem_skins.json")) {
+            JsonObject json = new Gson().fromJson(new InputStreamReader(stream), JsonObject.class);
+            femSkins = new Gson().fromJson(json.getAsJsonArray("textures"), String[].class);
+        } catch (Exception e) {
+            Log.error("Failed to load fem skins :(");
+        }
+        try (InputStream stream = HumanoidManager.class.getResourceAsStream("/data/emysvillagers/masc_skins.json")) {
+            JsonObject json = new Gson().fromJson(new InputStreamReader(stream), JsonObject.class);
+            mascSkins = new Gson().fromJson(json.getAsJsonArray("textures"), String[].class);
+        } catch (Exception e) {
+            Log.error("Failed to load masc skins :(");
         }
     }
 }

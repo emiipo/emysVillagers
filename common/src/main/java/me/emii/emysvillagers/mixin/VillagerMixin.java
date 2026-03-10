@@ -28,12 +28,14 @@ public class VillagerMixin implements IHumanoidDataAccessor {
     private static final EntityDataAccessor<Byte> BODY_TYPE = SynchedEntityData.defineId(Villager.class, EntityDataSerializers.BYTE);
     private static final EntityDataAccessor<String> NAME = SynchedEntityData.defineId(Villager.class, EntityDataSerializers.STRING);
     private static final EntityDataAccessor<Float> PITCH = SynchedEntityData.defineId(Villager.class, EntityDataSerializers.FLOAT);
+    private static final EntityDataAccessor<String> SKIN = SynchedEntityData.defineId(Villager.class, EntityDataSerializers.STRING);
 
     @Inject(method = "defineSynchedData", at = @At("TAIL"))
     protected void defineHumanoidData(SynchedEntityData.Builder builder, CallbackInfo ci) {
         builder.define(BODY_TYPE, (byte)0);
         builder.define(NAME, "");
         builder.define(PITCH, 0f);
+        builder.define(SKIN, "");
     }
 
     @Inject(method = "getAmbientSound", at = @At("RETURN"), cancellable = true)
@@ -87,7 +89,8 @@ public class VillagerMixin implements IHumanoidDataAccessor {
         return new HumanoidData(
             HumanoidManager.getBodyType(entityData.get(BODY_TYPE)),
             entityData.get(NAME),
-            entityData.get(PITCH)
+            entityData.get(PITCH),
+            entityData.get(SKIN)
         );
     }
 
@@ -100,6 +103,7 @@ public class VillagerMixin implements IHumanoidDataAccessor {
         entityData.set(BODY_TYPE, (byte)data.bodyType().ordinal());
         entityData.set(NAME, data.name());
         entityData.set(PITCH, data.pitch());
+        entityData.set(SKIN, data.skin());
     }
     
     @Override
